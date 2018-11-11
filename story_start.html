@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘 <침실></title>
+</head>
+<script>
+	var doorClose, doorOpen;
+	var imgS1 = 0;
+	var imgS2 = 0;
+	var imgS3 = 0;
+	var imgS4 = 0;
+	var imgS5 = 0;
+	var talkS1 = 0;
+	var talkS2 = 0;
+	var talkS3 = 0;
+	var talkS4 = 0;
+	var talkS5 = 0;
+	var talkS6 = 0;
+	var talkS7 = 0;
+	var talkS8 = 0;
+	var talkS9 = 0;
+	var bgm;
+	var bgmFlag = 1;
+	var efmFlag = 1;
+	var doorState = 1; // 1닫힘
+	var calState = 0;
+
+	function bgmStart_stop(){
+		var btn = document.getElementsByName("bgmBtn");
+		if(bgmFlag == 1){
+			btn[0].value = "켜기";
+			bgmFlag = 2;
+			bgm.pause();
+		}
+		else{
+			btn[0].value = "끄기";
+			bgm.play();
+			bgmFlag = 1;
+		}
+	}
+	function efmStart_stop(){
+		var btn = document.getElementsByName("efmBtn");
+		if(efmFlag == 1){
+			btn[0].value = "켜기";
+			efmFlag = 2;	
+		}
+		else{
+			btn[0].value = "끄기";
+			efmFlag = 1;
+		}
+	}
+	function movingPage(){
+		window.location.href = "story_frame1_intro.html";
+	}
+</script>
+<body bgcolor="black">
+	</p> 
+	<hr color="red">
+	<script type="text/javascript"
+		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
+	<div id="container" class="container">
+		<div class="_collie_container"
+			style="position: relative; overflow: hidden; width: 300px; height: 50px;">
+			<canvas width="1000" height="600" class="_collie_layer"
+				style="position: absolute; left: 0px; top: 0px; display: block; z-index: 0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		bgm = new Audio();
+		bgm.src = "story_start/sound/story_start_bgm.mp3";
+		document.body.appendChild(bgm);
+		bgm.play();
+
+		var music1 = new Audio();
+		music1.src = "story_end/sound/story_end_(3).m4a";
+		document.body.appendChild(music1);
+
+		var music2 = new Audio();
+		music2.src = "story_start/sound/story_start_(2).mp3";
+		document.body.appendChild(music2);
+
+		var music4 = new Audio();
+		music4.src = "story_start/sound/story_start_(3).mp3";
+		document.body.appendChild(music4);
+
+		var music5 = new Audio();
+		music5.src = "story_start/sound/story_start_(4).mp3";
+		document.body.appendChild(music5);
+
+		var music6 = new Audio();
+		music6.src = "story_start/sound/story_start_(5).mp3";
+		document.body.appendChild(music6);
+		
+		var layerTalk = new collie.Layer({
+			x : 10,
+			y : 450,
+			width : 1000,
+			height : 100
+		})
+		var layerCal = new collie.Layer({
+			width : 1000,
+			height : 550
+		})
+		var layerHand = new collie.Layer({
+			x : -50,
+			y : -300,
+			width : 2000,
+			height : 1100
+		})
+		var doorLayer = new collie.Layer({
+			x : 835,
+			y : 150,
+			width : 200,
+			height : 500
+		})
+		var layer = new collie.Layer({
+			width : 1000,
+			height : 600
+		}).attach({
+			click : function(oEvent) {
+				if(talkS1 == 1){
+					talkS1 = 0;
+					talk1.set("visible",false);
+				}
+				else if(talkS2 == 1){
+					talkS2 = 0;
+					talk2.set("visible",false);
+					talkS3 = 1;
+					talk3.set("visible",true);
+				}
+				else if(talkS3 == 1){
+					talkS3 = 0;
+					talk3.set("visible",false);
+				}
+				else if(talkS4 == 1){
+					talkS4 = 0;
+					talk4.set("visible",false);
+				}
+				else if(talkS5 == 1){
+					talkS5 = 0;
+					talk5.set("visible",false);
+				}
+				else if(talkS6 == 1){
+					talkS6 = 0;
+					talk6.set("visible",false);
+					talkS7 = 1;
+					talk7.set("visible",true);
+				}
+				else if(talkS7 == 1){
+					talkS7 = 0;
+					talk7.set("visible",false);
+				}
+				else if(talkS8 == 1){
+					talkS8 = 0;
+					talk8.set("visible",false);
+					talkS9 = 1;
+					talk9.set("visible",true);
+				}
+				else if(talkS9 == 1){
+					talkS9 = 0;
+					talk9.set("visible",false);
+				}
+				else if(calState == 1){
+					calState = 0;
+
+					if (efmFlag == 1) {
+						music1.play();
+					}
+					box2.set("visible", false);
+					var box3 = new collie.DisplayObject({
+						width : 640,
+						height : 360,
+						x : 150,
+						y : 150,
+						backgroundImage : (imgS4==1 ? "cal8" : "cal7"),
+						velocityY : 1100, // Velocity of YAxis(pixel/s)
+						mass : 5,
+						friction : 0.5
+					}).addTo(layerCal);
+
+					collie.Timer.cycle(box3, "5fps", {
+						from : 0,
+						to : 1,
+						loop : 0
+					});
+
+					collie.Renderer.addLayer(layerCal);
+					collie.Renderer.load(document.getElementById("container"));
+					collie.Renderer.start();
+					collie.Timer.delay(function(oEvent) {
+					}, 700).attach({
+						complete : function() {
+							box3.set("visible", false);
+
+							if(imgS2 == 0){
+								imgS2 = 1;
+								talkS4 = 1;
+								talk4.set("visible",true);
+							}
+							if(imgS4==1){
+								talkS8 = 1;
+								talk8.set("visible",true);
+								imgS5 = 1;
+							}
+						}
+					});
+				}
+				else if (840 < oEvent.x && oEvent.x < 920 && 210 < oEvent.y && oEvent.y < 360) {
+					if (efmFlag == 1) {
+						music2.play();
+					}
+					if (doorState == 1) {
+						door.set("visible", false);
+						doorOpen = new collie.DisplayObject({
+							x : -12,
+							y : 0,
+							width : 108,
+							height : 176,
+							backgroundImage : 'img_2',
+							mass : 5,
+							friction : 0.5,
+							velocityX : -300,
+							visible : true
+						}).addTo(doorLayer);
+
+						collie.Timer.cycle(doorOpen, "5fps", {
+							from : 0,
+							to : 1,
+							loop : 0
+						});
+
+						collie.Renderer.addLayer(doorLayer);
+						collie.Renderer.load(document.getElementById("container"));
+						collie.Renderer.start();
+						doorState = 2;
+						
+						collie.Timer.delay(function(oEvent) {
+						}, 500).attach({
+							complete : function() {
+								doorOpen.set("visible",false);
+								if(imgS3 == 1 && imgS4 == 0){
+									ghost.set("visible",true);
+									imgS4 = 1;
+
+									collie.Timer.delay(function(oEvent) {
+									}, 300).attach({
+										complete : function() {
+											ghost.set("visible",false);
+											
+											collie.Timer.delay(function(oEvent) {
+											}, 300).attach({
+												complete : function() {
+													black.set("visible",true);
+													bg.set("visible",false);
+													
+													collie.Timer.delay(function(oEvent) {
+													}, 400).attach({
+														complete : function() {
+															black.set("visible",false);
+															bg.set("visible",true);
+															
+															collie.Timer.delay(function(oEvent) {
+															}, 200).attach({
+																complete : function() {
+																	black.set("visible",true);
+																	bg.set("visible",false);
+																	
+																	collie.Timer.delay(function(oEvent) {
+																	}, 300).attach({
+																		complete : function() {
+																			black.set("visible",false);
+																			bg.set("visible",true);
+																			
+																			handComming = new collie.DisplayObject({
+																				x : 0,
+																				y : 0,
+																				width : 1920,
+																				height : 1080,
+																				backgroundImage : 'hand',
+																			}).addTo(layerHand);
+
+																			collie.Timer.cycle(handComming, "50fps", {
+																				from : 0,
+																				to : 16,
+																				loop : 1
+																			});
+
+																			collie.Renderer.addLayer(layerHand);
+																			collie.Renderer.load(document.getElementById("container"));
+																			collie.Renderer.start();
+																			
+																			collie.Timer.delay(function(oEvent) {
+																			}, 1000).attach({
+																				complete : function() {
+																					talkS6 = 1;
+																					talk6.set("visible",true);
+																				}
+																			})
+																		}
+																	})
+
+																}
+															})
+														}
+													})
+
+												}
+											})
+										}
+									})
+								}
+							}
+						});
+					}
+					else{
+						doorClose = new collie.DisplayObject({
+							x : -100,
+							y : 0,
+							width : 108,
+							height : 176,
+							backgroundImage : 'img_2',
+							mass : 5,
+							friction : 0.5,
+							velocityX : 230,
+							visible : true
+						}).addTo(doorLayer);
+
+						collie.Timer.cycle(doorOpen, "5fps", {
+							from : 0,
+							to : 1,
+							loop : 0
+						});
+
+						collie.Renderer.addLayer(doorLayer);
+						collie.Renderer.load(document.getElementById("container"));
+						collie.Renderer.start();
+						doorState = 1;
+						
+						collie.Timer.delay(function(oEvent) {
+						}, 800).attach({
+							complete : function() {
+								door.set("visible", true);
+								doorClose.set("visible", false);
+							}
+						});
+					}
+				}
+				else if (610 < oEvent.x && oEvent.x < 640 && 245 < oEvent.y && oEvent.y < 280 && imgS1 == 1){
+					calState = 1;
+					if (efmFlag == 1) {
+						music1.play();
+					}
+					box2 = new collie.DisplayObject({
+						width : 640,
+						height : 360,
+						x : 150,
+						y : 400,
+						backgroundImage : (imgS4==1 ? "cal8" : "cal7"),
+						velocityY : -800, // Velocity of YAxis(pixel/s)
+						mass : 5,
+						visible : true,
+						friction : 0.5
+					}).addTo(layerCal);
+
+					collie.Timer.cycle(box2, "5fps", {
+						from : 0,
+						to : 1,
+						loop : 0
+					});
+					
+					collie.Renderer.addLayer(layerCal);
+					collie.Renderer.load(document.getElementById("container"));
+					collie.Renderer.start();
+				}
+				else if (530 < oEvent.x && oEvent.x < 550 && 190 < oEvent.y && oEvent.y < 205 && imgS2 == 1 && imgS3==0){
+					imgS3 = 1;
+					talkS5 = 1;
+					talk5.set("visible",true);
+					if (efmFlag == 1) {
+						music4.play();
+					}
+				}
+				else if (150 < oEvent.x && oEvent.x < 190 && 220 < oEvent.y && oEvent.y < 340){
+					if(imgS5 == 1){
+						if (efmFlag == 1) {
+							music6.play();
+						}
+						collie.Timer.delay(function(oEvent) {
+						}, 3500).attach({
+							complete : function() {
+								movingPage();
+							}
+						});
+					}
+					else{
+						if (efmFlag == 1) {
+							music5.play();
+						}
+						imgS1 = 1;
+						collie.Timer.delay(function(oEvent) {
+						}, 1000).attach({
+							complete : function() {
+								talkS2 = 1;
+								talk2.set("visible",true);
+							}
+						});
+					}
+				}
+			}
+		});
+
+		// 이미지 등록
+		collie.ImageManager.add('img_1',"story_start/image/story_start_(1).png");
+		bg = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_1',
+		}).addTo(layer);
+
+		collie.ImageManager.add('img_2',"story_start/image/story_start_(2).png");
+		door = new collie.DisplayObject({
+			x : -12,
+			y : 0,
+			width : 108,
+			height : 176,
+			backgroundImage : 'img_2',
+		}).addTo(doorLayer);
+		
+		collie.ImageManager.add('img_3',"story_start/image/story_start_(3).png");
+		ghost = new collie.DisplayObject({
+			x : -5,
+			y : 0,
+			width : 108,
+			height : 176,
+			backgroundImage : 'img_3',
+			visible : false
+		}).addTo(doorLayer);
+
+		collie.ImageManager.add('img_black',"story_start/image/story_start_black.png");
+		black = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_black',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('talk1',"story_start/image/story_start_talk_(1).png");
+		talk1 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk1',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk2',"story_start/image/story_start_talk_(2).png");
+		talk2 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk2',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk3',"story_start/image/story_start_talk_(3).png");
+		talk3 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk3',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk4',"story_start/image/story_start_talk_(4).png");
+		talk4 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk4',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk5',"story_start/image/story_start_talk_(5).png");
+		talk5 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk5',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk6',"story_start/image/story_start_talk_(6).png");
+		talk6 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk6',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk7',"story_start/image/story_start_talk_(7).png");
+		talk7 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk7',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk8',"story_start/image/story_start_talk_(8).png");
+		talk8 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk8',
+			visible : false
+		}).addTo(layerTalk);
+
+		collie.ImageManager.add('talk9',"story_start/image/story_start_talk_(9).png");
+		talk9 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk9',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add({"cal7" : "story_start/image/story_start_(4).png"})
+		collie.ImageManager.add({"cal8" : "story_start/image/story_start_(5).png"})
+		collie.ImageManager.add({"hand" : "story_start/image/story_start_(6).png"})
+
+		collie.Renderer.addLayer(layer);
+		collie.Renderer.addLayer(doorLayer);
+		collie.Renderer.addLayer(layerTalk);
+		collie.Renderer.load(document.getElementById("container"));
+		collie.Renderer.start();
+		
+		collie.Timer.delay(function(oEvent) {
+		}, 1000).attach({
+			complete : function() {
+				talkS1 = 1;
+				talk1.set("visible",true);
+			}
+		});
+	</script>
+	<font color="red">배경음 : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="끄기"/><p/>
+	<font color="red">효과음 : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="끄기"/>
+</body>
+</html>

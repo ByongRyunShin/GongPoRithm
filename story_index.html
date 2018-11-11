@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘 메뉴</title>
+</head>
+<script>
+	function startBtn(){
+		var r = confirm("<경고!>\n임산부나 노약자 및 만 18세 이하의 청소년은\n심장이 나가떨어질수도 있습니다.\n정말로 시작하시겠습니까?");
+		if(r==true){
+			document.getElementById('form1').submit();
+		}
+	}
+</script>
+<body bgcolor="black">
+	<center>
+	<hr color="red">
+	<font size=7 color="red"> 공포리즘 </font>
+	<hr color="red">
+	
+	<form id="form1" name="form1" method="post" action="story_start_intro.html"></p>
+	<a onClick="startBtn()"><img src="story_index/story_index_(1).png"><br></a>
+	</form>
+	</center>
+</body>
+</html>

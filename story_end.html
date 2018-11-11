@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘  <북카페></title>
+</head>
+<script>
+	var imgState = 42;
+	var bgm;
+	var bgmFlag = 1;
+	var efmFlag = 1;
+	var newspaperFlag = 0;
+	var box2;
+	function bgmStart_stop(){
+		var btn = document.getElementsByName("bgmBtn");
+		if(bgmFlag == 1){
+			btn[0].value = "켜기";
+			bgmFlag = 2;
+			bgm.pause();
+		}
+		else{
+			btn[0].value = "끄기";
+			bgm.play();
+			bgmFlag = 1;
+		}
+	}
+	function efmStart_stop(){
+		var btn = document.getElementsByName("efmBtn");
+		if(efmFlag == 1){
+			btn[0].value = "켜기";
+			efmFlag = 2;	
+		}
+		else{
+			btn[0].value = "끄기";
+			efmFlag = 1;
+		}
+	}
+
+	function movingPage(){
+		window.location.href = "story_end_outro.html";
+	}
+</script>
+<body bgcolor="black">
+<!-- 960 * 540 -->
+	</p> 
+	<hr color="red">
+	<script type="text/javascript"
+		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
+	<div id="container" class="container">
+		<div class="_collie_container"
+			style="position: relative; overflow: hidden; width: 300px; height: 50px;">
+			<canvas width="1000" height="600" class="_collie_layer"
+				style="position: absolute; left: 0px; top: 0px; display: block; z-index: 0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		bgm = new Audio();
+		bgm.src = "story_end/sound/story_end_bgm.mp3";
+		document.body.appendChild(bgm);
+
+		orgolBgm = new Audio();
+		orgolBgm.src = "story_end/sound/story_end_orgolBgm.mp3";
+		document.body.appendChild(orgolBgm);
+		orgolBgm.play();
+		
+		var layerTalk = new collie.Layer({
+			x : 10,
+			y : 450,
+			width : 1000,
+			height : 100
+		})
+		var layerNews = new collie.Layer({
+			width : 1000,
+			height : 550
+		})
+		var layerOrgol = new collie.Layer({
+			width : 1000,
+			height : 400
+		})
+		var layerGo = new collie.Layer({
+			x : 810,
+			y : 200,
+			width : 400,
+			height : 100
+		})
+		var layer = new collie.Layer({
+			width : 1000,
+			height : 600
+		}).attach({
+			click : function(oEvent) {
+				if(talkS1 == 1){
+					talkS1 = 0;
+					talk1.set("visible",false);
+				}
+				else if(newspaperFlag==1){
+					newspaperFlag = 0;
+
+					if (efmFlag == 1) {
+						var music = new Audio();
+						music.src = "story_end/sound/story_end_(3).m4a";
+						document.body.appendChild(music);
+						music.play();
+					}
+					box2.set("visible", false);
+					var box3 = new collie.DisplayObject({
+						width : 640,
+						height : 360,
+						x : 150,
+						y : 150,
+						backgroundImage : (imgState<=1 ? "bloodnewsPaper" : "newsPaper"),
+						velocityY : 1100, // Velocity of YAxis(pixel/s)
+						mass : 5,
+						friction : 0.5
+					}).addTo(layerNews);
+
+					collie.Timer.cycle(box3, "5fps", {
+						from : 0,
+						to : 1,
+						loop : 0
+					});
+
+					collie.Renderer.addLayer(layerNews);
+					collie.Renderer.load(document.getElementById("container"));
+					collie.Renderer.start();
+					collie.Timer.delay(function(oEvent) {
+					}, 2000).attach({
+						complete : function() {
+							box3.set("visible", false);
+							if(imgState<=1){
+								movingPage();
+							}
+						}
+					});
+				} else if (415 < oEvent.x && oEvent.x < 445 && 145 < oEvent.y
+						&& oEvent.y < 195) {
+					if (imgState % 2 == 0) {
+						if (efmFlag == 1) {
+							var music = new Audio();
+							music.src = "story_end/sound/story_end_(1).mp3";
+							document.body.appendChild(music);
+							music.play();
+						}
+						img1.set("visible", false);
+						img2.set("visible", true);
+						img3.set("visible", false);
+						imgState /= 2;
+						orgolBgm.pause();
+						bgm.play();
+						var box = new collie.DisplayObject({
+							width : 83,
+							height : 90,
+							x : 400,
+							y : 110,
+							backgroundImage : "orgol",
+							velocityY : 500, // Velocity of YAxis(pixel/s)
+						}).addTo(layerOrgol);
+
+						collie.Timer.cycle(box, "18fps", {
+							from : 0,
+							to : 8,
+							loop : 0
+						});
+
+						collie.Renderer.addLayer(layerOrgol);
+						collie.Renderer.load(document.getElementById("container"));
+						collie.Renderer.start();
+					}
+				} else if (490 < oEvent.x && oEvent.x < 565 && 420 < oEvent.y
+						&& oEvent.y < 495) {
+					if (imgState % 3 == 0) {
+						if (efmFlag == 1) {
+							var music = new Audio();
+							music.src = "story_end/sound/story_end_(2).MP3";
+							document.body.appendChild(music);
+							music.play();
+						}
+						var box4 = new collie.DisplayObject({
+							width : 96,
+							height : 43,
+							x : 15,
+							y : 10,
+							backgroundImage : "moveFace",
+							velocityX : -300
+						}).addTo(layerGo);
+
+						collie.Timer.cycle(box4, "9fps", {
+							from : 0,
+							to : 3,
+							loop : 0
+						});
+
+						collie.Renderer.addLayer(layerGo);
+						collie.Renderer.load(document.getElementById("container"));
+						collie.Renderer.start();
+						imgState /= 3;
+					}
+				} else if (325 < oEvent.x && oEvent.x < 425 && 480 < oEvent.y
+						&& oEvent.y < 520) {
+					newspaperFlag = 1;
+					if (efmFlag == 1) {
+						var music = new Audio();
+						music.src = "story_end/sound/story_end_(3).m4a";
+						document.body.appendChild(music);
+						music.play();
+					}
+
+					box2 = new collie.DisplayObject({
+						width : 640,
+						height : 360,
+						x : 150,
+						y : 400,
+						backgroundImage : (imgState<=1 ? "bloodnewsPaper" : "newsPaper"),
+						velocityY : -800, // Velocity of YAxis(pixel/s)
+						mass : 5,
+						friction : 0.5
+					}).addTo(layerNews);
+
+					collie.Timer.cycle(box2, "5fps", {
+						from : 0,
+						to : 1,
+						loop : 0
+					});
+					
+					collie.Renderer.addLayer(layerNews);
+					collie.Renderer.load(document.getElementById("container"));
+					collie.Renderer.start();
+				} else if (325 < oEvent.x && oEvent.x < 375 && 230 < oEvent.y
+						&& oEvent.y < 275) {
+					if (imgState % 7 == 0) {
+						collie.Timer.delay(function(oEvent) {
+						}, 2000).attach({
+							complete : function() {
+								img1.set("visible", false);
+								img2.set("visible", false);
+								img3.set("visible", true);
+								if (efmFlag == 1) {
+									var music = new Audio();
+									music.src = "story_end/sound/story_end_(4).m4a";
+									document.body.appendChild(music);
+									music.play();
+								}
+								collie.Timer.delay(function(oEvent) {
+								}, 2000).attach({
+									complete : function() {
+										img1.set("visible", false);
+										img2.set("visible", true);
+										img3.set("visible", false);
+										imgState /= 7;
+									}
+								});
+							}
+						});
+					}
+				}
+				//alert(oEvent.x + "," + oEvent.y);
+			}
+		});
+
+		// 이미지 등록
+		collie.ImageManager.add('img_1', "story_end/image/story_end_(1).png");
+		img1 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_1',
+			visible : true
+		}).addTo(layer);
+
+		collie.ImageManager.add('img_2', "story_end/image/story_end_(2).png");
+		img2 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_2',
+			visible : false
+		}).addTo(layer);
+
+		collie.ImageManager.add('img_3', "story_end/image/story_end_(3).png");
+		img3 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_3',
+			visible : false
+		}).addTo(layer);
+
+		collie.ImageManager.add('talk1',"story_end/image/story_end_talk_(1).png");
+		talk1 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk1',
+			visible : false
+		}).addTo(layerTalk);
+		collie.ImageManager.add({"newsPaper" : "story_end/image/story_end_(5).png"})
+		collie.ImageManager.add({"bloodnewsPaper" : "story_end/image/story_end_(6).png"})
+		collie.ImageManager.add({"moveFace" : "story_end/image/story_end_(7).png"})
+		collie.ImageManager.add({"orgol" : "story_end/image/story_end_(1)_1.png"})
+		
+		collie.Renderer.addLayer(layer);
+		collie.Renderer.addLayer(layerTalk);
+		collie.Renderer.load(document.getElementById("container"));
+		collie.Renderer.start();
+		
+		collie.Timer.delay(function(oEvent) {
+		}, 1000).attach({
+			complete : function() {
+				talkS1 = 1;
+				talk1.set("visible",true);
+			}
+		});
+		collie.Timer.delay(function(oEvent) {
+		}, 31000).attach({
+			complete : function() {
+				bgm.play();
+			}
+		});
+	</script>
+	<font color="red">배경음 : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="끄기"/><p/>
+	<font color="red">효과음 : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="끄기"/>
+
+</body>
+</html>

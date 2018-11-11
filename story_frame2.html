@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘  <샤워실></title>
+</head>
+<script>
+	var imgS1 = 0;
+	var imgS2 = 0;
+	var imgS3 = 0;
+	var talkS1 = 0;
+	var talkS2 = 0;
+	var bgm;
+	var bgmFlag = 1;
+	var efmFlag = 1;
+	var sectionState = 0;
+
+	function bgmStart_stop() {
+		var btn = document.getElementsByName("bgmBtn");
+		if (bgmFlag == 1) {
+			btn[0].value = "켜기";
+			bgmFlag = 2;
+			bgm.pause();
+		} else {
+			btn[0].value = "끄기";
+			bgm.play();
+			bgmFlag = 1;
+		}
+	}
+	function efmStart_stop() {
+		var btn = document.getElementsByName("efmBtn");
+		if (efmFlag == 1) {
+			btn[0].value = "켜기";
+			efmFlag = 2;
+		} else {
+			btn[0].value = "끄기";
+			efmFlag = 1;
+		}
+	}
+	function movingPage() {
+		window.location.href = "story_end_intro.html";
+	}
+</script>
+<body bgcolor="black">
+	</p> 
+	<hr color="red">
+	<script type="text/javascript"
+		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
+	<div id="container" class="container">
+		<div class="_collie_container"
+			style="position: relative; overflow: hidden; width: 300px; height: 50px;">
+			<canvas width="1000" height="600" class="_collie_layer"
+				style="position: absolute; left: 0px; top: 0px; display: block; z-index: 0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		bgm = new Audio();
+		bgm.src = "story_frame2/sound/story_frame2_bgm.mp3";
+		document.body.appendChild(bgm);
+		bgm.play();
+
+		var music1 = new Audio();
+		music1.src = "story_frame2/sound/story_frame2_(2).mp3";
+		document.body.appendChild(music1);
+
+		var music2 = new Audio();
+		music2.src = "story_frame2/sound/story_frame2_(3).mp3";
+		document.body.appendChild(music2);
+
+		var music3 = new Audio();
+		music3.src = "story_frame2/sound/story_frame2_(1).mp3";
+		document.body.appendChild(music3);
+
+		var music4 = new Audio();
+		music4.src = "story_start/sound/story_start_(5).mp3";
+		document.body.appendChild(music4);
+		
+		var layerTalk = new collie.Layer({
+			x : 10,
+			y : 450,
+			width : 1000,
+			height : 100
+		})
+		var layer = new collie.Layer({
+			width : 1000,
+			height : 600
+		}).attach({
+			click : function(oEvent) {
+				if(talkS1 == 1){
+					talkS1 = 0;
+					talk1.set("visible",false);
+				}
+				else if(talkS2 == 1){
+					talkS2 = 0;
+					talk2.set("visible",false);
+					music4.play();
+					collie.Timer.delay(function(oEvent) {
+					}, 3500).attach({
+						complete : function() {
+							bg2.set("visible",true);
+							bg.set("visible",false);
+						}
+					})
+					collie.Timer.delay(function(oEvent) {
+					}, 4000).attach({
+						complete : function() {
+							bg2.set("visible",true);
+							bg.set("visible",false);
+							movingPage();
+						}
+					})
+				}
+				else if(725<oEvent.x && oEvent.x<750 && 430<oEvent.y && oEvent.y<467 ){
+					imgS2 = 1;
+					if (efmFlag == 1) {
+						music1.play();
+					}
+				}
+				else if(310<oEvent.x && oEvent.x<360 && 562<oEvent.y && oEvent.y<585 && imgS1 == 1 && imgS2 == 1 && imgS3 ==0){
+					imgS3 = 1;
+					if (efmFlag == 1) {
+						music2.play();
+					}
+					collie.Timer.delay(function(oEvent) {
+					}, 2000).attach({
+						complete : function() {
+							talkS2 = 1;
+							talk2.set("visible",true);
+						}
+					})
+				}
+				else if(498<oEvent.x && oEvent.x<595 && 85<oEvent.y && oEvent.y<290 ){
+					imgS1 = 1;
+					if (efmFlag == 1) {
+						music3.play();
+					}
+					if(sectionState == 0){
+						section.set("visible",true);
+						sectionState = 1;
+					}
+					else{
+						section.set("visible",false);
+						sectionState = 0;
+					}
+				}
+			}
+		});
+
+		// 이미지 등록
+		collie.ImageManager.add('img_1',"story_frame2/image/story_frame2_(1).png");
+		bg = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_1',
+		}).addTo(layer);
+
+		collie.ImageManager.add('img_2',"story_frame2/image/story_frame2_(2).png");
+		section = new collie.DisplayObject({
+			x : 449,
+			y : 20,
+			width : 154,
+			height : 250,
+			backgroundImage : 'img_2',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_3',"story_frame2/image/story_frame2_(3).png");
+		bg2 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_3',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('talk1',"story_frame2/image/story_frame2_talk_(1).png");
+		talk1 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk1',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk2',"story_frame2/image/story_frame2_talk_(2).png");
+		talk2 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk2',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.Renderer.addLayer(layer);
+		collie.Renderer.addLayer(layerTalk);
+		collie.Renderer.load(document.getElementById("container"));
+		collie.Renderer.start();
+
+		collie.Timer.delay(function(oEvent) {
+		}, 1000).attach({
+			complete : function() {
+				talkS1 = 1;
+				talk1.set("visible",true);
+			}
+		});
+	</script>
+	<font color="red">배경음 : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="끄기"/><p/>
+	<font color="red">효과음 : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="끄기"/>
+</body>
+</html>

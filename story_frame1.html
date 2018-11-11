@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘  <복도></title>
+</head>
+
+<script>
+	var bgm;
+	var bgmFlag = 1;
+	var efmFlag = 1;
+	var imgUpDown = 0;
+	var imgS1 = 0;
+	var imgS2 = 0;
+	var imgS3 = 0;
+	var imgS4 = 0;
+	var imgS5 = 0;
+	var talkS1 = 0;
+	var talkS2 = 0;
+	var talkS3 = 0;
+	var talkS4 = 0;
+	var talkS5 = 0;
+	var talkS6 = 0;
+	var bright = 0;
+
+	function bgmStart_stop(){
+		var btn = document.getElementsByName("bgmBtn");
+		if(bgmFlag == 1){
+			btn[0].value = "켜기";
+			bgmFlag = 2;
+			bgm.pause();
+		}
+		else{
+			btn[0].value = "끄기";
+			bgm.play();
+			bgmFlag = 1;
+		}
+	}
+	function efmStart_stop(){
+		var btn = document.getElementsByName("efmBtn");
+		if(efmFlag == 1){
+			btn[0].value = "켜기";
+			efmFlag = 2;	
+		}
+		else{
+			btn[0].value = "끄기";
+			efmFlag = 1;
+		}
+	}
+	function movingPage(){
+		window.location.href = "story_frame2_intro.html";
+	}
+</script>
+<body bgcolor="black">
+</p> 
+	<hr color="red">
+	<script type="text/javascript"
+		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
+	<div id="container" class="container">
+		<div class="_collie_container"
+			style="position: relative; overflow: hidden; width: 300px; height: 50px;">
+			<canvas width="1000" height="600" class="_collie_layer"
+				style="position: absolute; left: 0px; top: 0px; display: block; z-index: 0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		bgm = new Audio();
+		bgm.src = "story_frame1/sound/story_frame1_bgm.m4a";
+		document.body.appendChild(bgm);
+		bgm.play();
+
+		var music1 = new Audio();
+		music1.src = "story_frame1/sound/story_frame1_(1).mp3";
+		document.body.appendChild(music1);
+
+		var music2 = new Audio();
+		music2.src = "story_end/sound/story_end_(3).m4a";
+		document.body.appendChild(music2);
+		
+		var music3 = new Audio();
+		music3.src = "story_frame1/sound/story_frame1_(2).m4a";
+		document.body.appendChild(music3);
+		
+		var layerTalk = new collie.Layer({
+			x : 10,
+			y : 450,
+			width : 1000,
+			height : 100
+		})
+		var layerImg = new collie.Layer({
+			width : 1000,
+			height : 550
+		})
+		var layer = new collie.Layer({
+			width : 1000,
+			height : 600
+		}).attach({
+			click : function(oEvent) {
+				if(talkS1 == 1){
+					talkS1 = 0;
+					talk1.set("visible",false);
+				}
+				else if(talkS2 == 1){
+					talkS2 = 0;
+					talk2.set("visible",false);
+				}
+				else if(talkS3 == 1){
+					talkS3 = 0;
+					talk3.set("visible",false);
+				}
+				else if(talkS4 == 1){
+					talkS4 = 0;
+					talk4.set("visible",false);
+					talkS5 = 1;
+					talk5.set("visible",true);
+				}
+				else if(talkS5 == 1){
+					talkS5 = 0;
+					talk5.set("visible",false);
+				}
+				else if(talkS6 == 1){
+					talkS6 = 0;
+					talk6.set("visible",false);
+				}
+				else if(imgUpDown == 1){
+					imgUpDown = 0;
+
+					if (efmFlag == 1) {
+						music2.play();
+					}
+					imgUp.set("visible", false);
+					var imgDown = new collie.DisplayObject({
+						width : 300,
+						height : 500,
+						x : 150,
+						y : 150,
+						backgroundImage : "img_5",
+						velocityY : 1100, // Velocity of YAxis(pixel/s)
+						mass : 5,
+						friction : 0.5
+					}).addTo(layerImg);
+
+					collie.Timer.cycle(imgDown, "5fps", {
+						from : 0,
+						to : 1,
+						loop : 0
+					});
+
+					collie.Renderer.addLayer(layerImg);
+					collie.Renderer.load(document.getElementById("container"));
+					collie.Renderer.start();
+					
+					collie.Timer.delay(function(oEvent) {
+					}, 700).attach({
+						complete : function() {
+							imgDown.set("visible", false);
+							
+							collie.Timer.delay(function(oEvent) {
+							}, 700).attach({
+								complete : function() {
+									if(imgS2 == 0){
+										imgS2 = 1;
+										talkS3 = 1;
+										bg3.set("visible",true);
+										bg2.set("visible",false);
+										talk3.set("visible",true);
+									}
+									else if(imgS3 == 1 && imgS4==0){
+										imgS4 = 1;
+										talkS4 = 1;
+										bg3.set("visible",true);
+										bg4.set("visible",false);
+										talk4.set("visible",true);
+									}
+									bright = 0;
+								}
+							})
+						}
+					});
+					
+				}
+				else if(95<oEvent.x && oEvent.x<105 && 395<oEvent.y && oEvent.y<450){
+					if(bright == 1){
+						talkS6 = 1;
+						talk6.set("visible",true);
+					}
+					else if(imgS4 == 1 && imgS5==0){
+						imgS5 = 1;
+						collie.Timer.delay(function(oEvent) {
+						}, 2000).attach({
+							complete : function() {
+								if (efmFlag == 1) {
+									music3.play();
+								}
+								ghost1.set("visible",true);
+								collie.Timer.delay(function(oEvent) {
+								}, 300).attach({
+									complete : function() {
+										ghost1.set("visible",false);
+										ghost2.set("visible",true);
+										collie.Timer.delay(function(oEvent) {
+										}, 300).attach({
+											complete : function() {
+												ghost2.set("visible",false);
+												ghost3.set("visible",true);
+												
+												collie.Timer.delay(function(oEvent) {
+												}, 300).attach({
+													complete : function() {
+														ghost3.set("visible",false);
+														ghost4.set("visible",true);
+														
+														collie.Timer.delay(function(oEvent) {
+														}, 2000).attach({
+															complete : function() {
+																ghost4.set("visible",false);
+																movingPage();
+															}
+														})
+													}
+												})
+											}
+										})
+									}
+								})
+							}
+						})
+					}
+					else if(imgS1 == 0){
+						if (efmFlag == 1) {
+							music1.play();
+						}
+						imgS1 = 1;
+						bright = 1;
+						bg1.set("visible",false);
+						bg2.set("visible",true);
+						collie.Timer.delay(function(oEvent) {
+						}, 700).attach({
+							complete : function() {
+								talkS2 = 1;
+								talk2.set("visible",true);
+							}
+						})
+					}
+					else if(imgS2 == 1 && imgS3 == 0){
+						if (efmFlag == 1) {
+							music1.play();
+						}
+						imgS3 = 1;
+						bright = 1;
+						bg3.set("visible",false);
+						bg4.set("visible",true);
+					}
+				}
+				else if(555<oEvent.x && oEvent.x<590 && 215<oEvent.y && oEvent.y<285){
+					if(imgS1 == 1 || imgS3 == 1){
+						imgUpDown = 1;
+
+						if (efmFlag == 1) {
+							music2.play();
+						}
+						imgUp = new collie.DisplayObject({
+							width : 300,
+							height : 500,
+							x : 150,
+							y : 400,
+							backgroundImage : "img_5",
+							velocityY : -1000, // Velocity of YAxis(pixel/s)
+							mass : 5,
+							friction : 0.5
+						}).addTo(layerImg);
+
+						collie.Timer.cycle(imgUp, "5fps", {
+							from : 0,
+							to : 1,
+							loop : 0
+						});
+						
+						collie.Renderer.addLayer(layerImg);
+						collie.Renderer.load(document.getElementById("container"));
+						collie.Renderer.start();
+					}
+				}
+				//alert(oEvent.x + "," + oEvent.y);
+			}
+		});
+
+		// 이미지 등록
+		collie.ImageManager.add('img_1',"story_frame1/image/story_frame1_(1).png");
+		bg1 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_1',
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_2',"story_frame1/image/story_frame1_(2).png");
+		bg2 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_2',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_3',"story_frame1/image/story_frame1_(3).png");
+		bg3 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_3',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_4',"story_frame1/image/story_frame1_(4).png");
+		bg4 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_4',
+			visible : false
+		}).addTo(layer);
+		collie.ImageManager.add('img_5',"story_frame1/image/story_frame1_(5).png");
+		
+		collie.ImageManager.add('img_6',"story_frame1/image/story_frame1_(6).png");
+		ghost1 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_6',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_7',"story_frame1/image/story_frame1_(7).png");
+		ghost2 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_7',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_8',"story_frame1/image/story_frame1_(8).png");
+		ghost3 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_8',
+			visible : false
+		}).addTo(layer);
+		
+		collie.ImageManager.add('img_9',"story_frame1/image/story_frame1_(9).png");
+		ghost4 = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : 'img_9',
+			visible : false
+		}).addTo(layer);
+	
+		collie.ImageManager.add('talk1',"story_frame1/image/story_frame1_talk_(1).png");
+		talk1 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk1',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk2',"story_frame1/image/story_frame1_talk_(2).png");
+		talk2 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk2',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk3',"story_frame1/image/story_frame1_talk_(3).png");
+		talk3 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk3',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk4',"story_frame1/image/story_frame1_talk_(4).png");
+		talk4 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk4',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk5',"story_frame1/image/story_frame1_talk_(5).png");
+		talk5 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk5',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.ImageManager.add('talk6',"story_frame1/image/story_frame1_talk_(6).png");
+		talk6 = new collie.DisplayObject({
+			x : 1,
+			y : 0,
+			width : 958,
+			height : 56,
+			backgroundImage : 'talk6',
+			visible : false
+		}).addTo(layerTalk);
+		
+		collie.Renderer.addLayer(layer);
+		collie.Renderer.addLayer(layerTalk);
+		collie.Renderer.load(document.getElementById("container"));
+		collie.Renderer.start();
+		
+		collie.Timer.delay(function(oEvent) {
+		}, 1000).attach({
+			complete : function() {
+				talkS1 = 1;
+				talk1.set("visible",true);
+			}
+		});
+	</script>
+	<font color="red">배경음 : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="끄기"/><p/>
+	<font color="red">효과음 : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="끄기"/>
+</body>
+</html>

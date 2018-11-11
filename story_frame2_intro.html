@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>공포리즘</title>
+</head>
+<body bgcolor="black">
+<p> 
+	<hr color="red">
+	<script type="text/javascript"
+		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
+	<div id="container" class="container">
+		<div class="_collie_container"
+			style="position: relative; overflow: hidden; width: 300px; height: 50px;">
+			<canvas width="1000" height="600" class="_collie_layer"
+				style="position: absolute; left: 0px; top: 0px; display: block; z-index: 0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		var layer = new collie.Layer({
+			width : 1000,
+			height : 600
+		});
+
+		// 이미지 등록
+		collie.ImageManager.add('img_1', "story_frame2/image/story_frame2.png");
+		
+		effect = new collie.DisplayObject({
+			x : 10,
+			y : 10,
+			width : 960,
+			height : 540,
+			backgroundImage : "img_1"
+		}).addTo(layer);
+
+		collie.Timer.cycle(effect, "4fps", {
+			from : 0,
+			to : 15,
+			loop : 1
+		});
+		
+		collie.Renderer.addLayer(layer);
+		collie.Renderer.load(document.getElementById("container"));
+		collie.Renderer.start();
+		
+		collie.Timer.delay(function(oEvent) {
+		}, 5000).attach({
+			complete : function() {
+				window.location.href = "story_frame2.html";
+			}
+		});
+	</script>
+</body>
+</html>

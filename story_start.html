@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>∞¯∆˜∏Æ¡Ú <ƒßΩ«></title>
+<title>Í≥µÌè¨Î¶¨Ï¶ò <Ïπ®Ïã§></title>
 </head>
 <script>
 	var doorClose, doorOpen;
@@ -23,18 +23,18 @@
 	var bgm;
 	var bgmFlag = 1;
 	var efmFlag = 1;
-	var doorState = 1; // 1¥›»˚
+	var doorState = 1; // 1Îã´Ìûò
 	var calState = 0;
 
 	function bgmStart_stop(){
 		var btn = document.getElementsByName("bgmBtn");
 		if(bgmFlag == 1){
-			btn[0].value = "ƒ—±‚";
+			btn[0].value = "ÔøΩ—±ÔøΩ";
 			bgmFlag = 2;
 			bgm.pause();
 		}
 		else{
-			btn[0].value = "≤Ù±‚";
+			btn[0].value = "ÔøΩÔøΩÔøΩÔøΩ";
 			bgm.play();
 			bgmFlag = 1;
 		}
@@ -42,11 +42,11 @@
 	function efmStart_stop(){
 		var btn = document.getElementsByName("efmBtn");
 		if(efmFlag == 1){
-			btn[0].value = "ƒ—±‚";
-			efmFlag = 2;	
+			btn[0].value = "ÔøΩ—±ÔøΩ";
+			efmFlag = 2;
 		}
 		else{
-			btn[0].value = "≤Ù±‚";
+			btn[0].value = "ÔøΩÔøΩÔøΩÔøΩ";
 			efmFlag = 1;
 		}
 	}
@@ -55,7 +55,7 @@
 	}
 </script>
 <body bgcolor="black">
-	</p> 
+	</p>
 	<hr color="red">
 	<script type="text/javascript"
 		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
@@ -91,7 +91,7 @@
 		var music6 = new Audio();
 		music6.src = "story_start/sound/story_start_(5).mp3";
 		document.body.appendChild(music6);
-		
+
 		var layerTalk = new collie.Layer({
 			x : 10,
 			y : 450,
@@ -234,7 +234,7 @@
 						collie.Renderer.load(document.getElementById("container"));
 						collie.Renderer.start();
 						doorState = 2;
-						
+
 						collie.Timer.delay(function(oEvent) {
 						}, 500).attach({
 							complete : function() {
@@ -247,31 +247,31 @@
 									}, 300).attach({
 										complete : function() {
 											ghost.set("visible",false);
-											
+
 											collie.Timer.delay(function(oEvent) {
 											}, 300).attach({
 												complete : function() {
 													black.set("visible",true);
 													bg.set("visible",false);
-													
+
 													collie.Timer.delay(function(oEvent) {
 													}, 400).attach({
 														complete : function() {
 															black.set("visible",false);
 															bg.set("visible",true);
-															
+
 															collie.Timer.delay(function(oEvent) {
 															}, 200).attach({
 																complete : function() {
 																	black.set("visible",true);
 																	bg.set("visible",false);
-																	
+
 																	collie.Timer.delay(function(oEvent) {
 																	}, 300).attach({
 																		complete : function() {
 																			black.set("visible",false);
 																			bg.set("visible",true);
-																			
+
 																			handComming = new collie.DisplayObject({
 																				x : 0,
 																				y : 0,
@@ -289,7 +289,7 @@
 																			collie.Renderer.addLayer(layerHand);
 																			collie.Renderer.load(document.getElementById("container"));
 																			collie.Renderer.start();
-																			
+
 																			collie.Timer.delay(function(oEvent) {
 																			}, 1000).attach({
 																				complete : function() {
@@ -336,7 +336,7 @@
 						collie.Renderer.load(document.getElementById("container"));
 						collie.Renderer.start();
 						doorState = 1;
-						
+
 						collie.Timer.delay(function(oEvent) {
 						}, 800).attach({
 							complete : function() {
@@ -368,7 +368,7 @@
 						to : 1,
 						loop : 0
 					});
-					
+
 					collie.Renderer.addLayer(layerCal);
 					collie.Renderer.load(document.getElementById("container"));
 					collie.Renderer.start();
@@ -410,7 +410,7 @@
 			}
 		});
 
-		// ¿ÃπÃ¡ˆ µÓ∑œ
+		// Ïù¥ÎØ∏ÏßÄ Îì±Î°ù
 		collie.ImageManager.add('img_1',"story_start/image/story_start_(1).png");
 		bg = new collie.DisplayObject({
 			x : 10,
@@ -428,7 +428,7 @@
 			height : 176,
 			backgroundImage : 'img_2',
 		}).addTo(doorLayer);
-		
+
 		collie.ImageManager.add('img_3',"story_start/image/story_start_(3).png");
 		ghost = new collie.DisplayObject({
 			x : -5,
@@ -448,7 +448,7 @@
 			backgroundImage : 'img_black',
 			visible : false
 		}).addTo(layer);
-		
+
 		collie.ImageManager.add('talk1',"story_start/image/story_start_talk_(1).png");
 		talk1 = new collie.DisplayObject({
 			x : 1,
@@ -458,7 +458,7 @@
 			backgroundImage : 'talk1',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk2',"story_start/image/story_start_talk_(2).png");
 		talk2 = new collie.DisplayObject({
 			x : 1,
@@ -468,7 +468,7 @@
 			backgroundImage : 'talk2',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk3',"story_start/image/story_start_talk_(3).png");
 		talk3 = new collie.DisplayObject({
 			x : 1,
@@ -478,7 +478,7 @@
 			backgroundImage : 'talk3',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk4',"story_start/image/story_start_talk_(4).png");
 		talk4 = new collie.DisplayObject({
 			x : 1,
@@ -488,7 +488,7 @@
 			backgroundImage : 'talk4',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk5',"story_start/image/story_start_talk_(5).png");
 		talk5 = new collie.DisplayObject({
 			x : 1,
@@ -498,7 +498,7 @@
 			backgroundImage : 'talk5',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk6',"story_start/image/story_start_talk_(6).png");
 		talk6 = new collie.DisplayObject({
 			x : 1,
@@ -508,7 +508,7 @@
 			backgroundImage : 'talk6',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk7',"story_start/image/story_start_talk_(7).png");
 		talk7 = new collie.DisplayObject({
 			x : 1,
@@ -518,7 +518,7 @@
 			backgroundImage : 'talk7',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk8',"story_start/image/story_start_talk_(8).png");
 		talk8 = new collie.DisplayObject({
 			x : 1,
@@ -538,7 +538,7 @@
 			backgroundImage : 'talk9',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add({"cal7" : "story_start/image/story_start_(4).png"})
 		collie.ImageManager.add({"cal8" : "story_start/image/story_start_(5).png"})
 		collie.ImageManager.add({"hand" : "story_start/image/story_start_(6).png"})
@@ -548,7 +548,7 @@
 		collie.Renderer.addLayer(layerTalk);
 		collie.Renderer.load(document.getElementById("container"));
 		collie.Renderer.start();
-		
+
 		collie.Timer.delay(function(oEvent) {
 		}, 1000).attach({
 			complete : function() {
@@ -557,7 +557,7 @@
 			}
 		});
 	</script>
-	<font color="red">πË∞Ê¿Ω : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="≤Ù±‚"/><p/>
-	<font color="red">»ø∞˙¿Ω : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="≤Ù±‚"/>
+	<font color="red">Î∞∞Í≤ΩÏùå : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="ÔøΩÔøΩÔøΩÔøΩ"/><p/>
+	<font color="red">Ìö®Í≥ºÏùå : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="ÔøΩÔøΩÔøΩÔøΩ"/>
 </body>
 </html>

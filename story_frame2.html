@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>°øÆ÷¸®Áò  <»ş¿ö½Ç></title>
+<title>ê³µí¬ë¦¬ì¦˜  <ìƒ¤ì›Œì‹¤></title>
 </head>
 <script>
 	var imgS1 = 0;
@@ -18,11 +18,11 @@
 	function bgmStart_stop() {
 		var btn = document.getElementsByName("bgmBtn");
 		if (bgmFlag == 1) {
-			btn[0].value = "ÄÑ±â";
+			btn[0].value = "ì¼œê¸°";
 			bgmFlag = 2;
 			bgm.pause();
 		} else {
-			btn[0].value = "²ô±â";
+			btn[0].value = "ë„ê¸°";
 			bgm.play();
 			bgmFlag = 1;
 		}
@@ -30,10 +30,10 @@
 	function efmStart_stop() {
 		var btn = document.getElementsByName("efmBtn");
 		if (efmFlag == 1) {
-			btn[0].value = "ÄÑ±â";
+			btn[0].value = "ì¼œê¸°";
 			efmFlag = 2;
 		} else {
-			btn[0].value = "²ô±â";
+			btn[0].value = "ë„ê¸°";
 			efmFlag = 1;
 		}
 	}
@@ -42,7 +42,7 @@
 	}
 </script>
 <body bgcolor="black">
-	</p> 
+	</p>
 	<hr color="red">
 	<script type="text/javascript"
 		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
@@ -74,7 +74,7 @@
 		var music4 = new Audio();
 		music4.src = "story_start/sound/story_start_(5).mp3";
 		document.body.appendChild(music4);
-		
+
 		var layerTalk = new collie.Layer({
 			x : 10,
 			y : 450,
@@ -146,7 +146,7 @@
 			}
 		});
 
-		// ÀÌ¹ÌÁö µî·Ï
+		// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		collie.ImageManager.add('img_1',"story_frame2/image/story_frame2_(1).png");
 		bg = new collie.DisplayObject({
 			x : 10,
@@ -165,7 +165,7 @@
 			backgroundImage : 'img_2',
 			visible : false
 		}).addTo(layer);
-		
+
 		collie.ImageManager.add('img_3',"story_frame2/image/story_frame2_(3).png");
 		bg2 = new collie.DisplayObject({
 			x : 10,
@@ -175,7 +175,7 @@
 			backgroundImage : 'img_3',
 			visible : false
 		}).addTo(layer);
-		
+
 		collie.ImageManager.add('talk1',"story_frame2/image/story_frame2_talk_(1).png");
 		talk1 = new collie.DisplayObject({
 			x : 1,
@@ -185,7 +185,7 @@
 			backgroundImage : 'talk1',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.ImageManager.add('talk2',"story_frame2/image/story_frame2_talk_(2).png");
 		talk2 = new collie.DisplayObject({
 			x : 1,
@@ -195,7 +195,7 @@
 			backgroundImage : 'talk2',
 			visible : false
 		}).addTo(layerTalk);
-		
+
 		collie.Renderer.addLayer(layer);
 		collie.Renderer.addLayer(layerTalk);
 		collie.Renderer.load(document.getElementById("container"));
@@ -209,7 +209,7 @@
 			}
 		});
 	</script>
-	<font color="red">¹è°æÀ½ : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="²ô±â"/><p/>
-	<font color="red">È¿°úÀ½ : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="²ô±â"/>
+	<font color="red">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="ï¿½ï¿½ï¿½ï¿½"/><p/>
+	<font color="red">È¿ï¿½ï¿½ï¿½ï¿½ : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="ï¿½ï¿½ï¿½ï¿½"/>
 </body>
 </html>

@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>°øÆ÷¸®ÁòÀÇ ½ÃÀÛ</title>
+<title>ê³µí¬ë¦¬ì¦˜ì˜ ì‹œì‘</title>
 </head>
 <body bgcolor="black">
-	<p> 
+	<p>
 	<hr color="red">
 	<script type="text/javascript"
 		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
@@ -17,16 +17,16 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		
+
 		var layer = new collie.Layer({
 			width : 1000,
 			height : 600
 		});
 
-		// ÀÌ¹ÌÁö µî·Ï
+		// ì´ë¯¸ì§€ ë“±ë¡
 		collie.ImageManager.add('img_1', "story_start/image/story_start.png");
 		collie.ImageManager.add('img_2', "story_start/image/story_start2.png");
-		
+
 		effect = new collie.DisplayObject({
 			x : 10,
 			y : 10,
@@ -40,11 +40,11 @@
 			to : 15,
 			loop : 1
 		});
-		
+
 		collie.Renderer.addLayer(layer);
 		collie.Renderer.load(document.getElementById("container"));
 		collie.Renderer.start();
-		
+
 		collie.Timer.delay(function(oEvent) {
 		}, 5000).attach({
 			complete : function() {
@@ -61,7 +61,7 @@
 					to : 15,
 					loop : 1
 				});
-				
+
 				collie.Renderer.addLayer(layer);
 				collie.Renderer.load(document.getElementById("container"));
 				collie.Renderer.start();

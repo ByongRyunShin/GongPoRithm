@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>°øÆ÷¸®Áò  <ºÏÄ«Æä></title>
+<title>ê³µí¬ë¦¬ì¦˜  <ë¶ì¹´í˜></title>
 </head>
 <script>
 	var imgState = 42;
@@ -14,12 +14,12 @@
 	function bgmStart_stop(){
 		var btn = document.getElementsByName("bgmBtn");
 		if(bgmFlag == 1){
-			btn[0].value = "ÄÑ±â";
+			btn[0].value = "ì¼œê¸°";
 			bgmFlag = 2;
 			bgm.pause();
 		}
 		else{
-			btn[0].value = "²ô±â";
+			btn[0].value = "ë„ê¸°";
 			bgm.play();
 			bgmFlag = 1;
 		}
@@ -27,11 +27,11 @@
 	function efmStart_stop(){
 		var btn = document.getElementsByName("efmBtn");
 		if(efmFlag == 1){
-			btn[0].value = "ÄÑ±â";
-			efmFlag = 2;	
+			btn[0].value = "ì¼œê¸°";
+			efmFlag = 2;
 		}
 		else{
-			btn[0].value = "²ô±â";
+			btn[0].value = "ë„ê¸°";
 			efmFlag = 1;
 		}
 	}
@@ -42,7 +42,7 @@
 </script>
 <body bgcolor="black">
 <!-- 960 * 540 -->
-	</p> 
+	</p>
 	<hr color="red">
 	<script type="text/javascript"
 		src="http://jindo.dev.naver.com/collie/deploy/collie.min.js"></script>
@@ -62,7 +62,7 @@
 		orgolBgm.src = "story_end/sound/story_end_orgolBgm.mp3";
 		document.body.appendChild(orgolBgm);
 		orgolBgm.play();
-		
+
 		var layerTalk = new collie.Layer({
 			x : 10,
 			y : 450,
@@ -220,7 +220,7 @@
 						to : 1,
 						loop : 0
 					});
-					
+
 					collie.Renderer.addLayer(layerNews);
 					collie.Renderer.load(document.getElementById("container"));
 					collie.Renderer.start();
@@ -256,7 +256,7 @@
 			}
 		});
 
-		// ÀÌ¹ÌÁö µî·Ï
+		// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		collie.ImageManager.add('img_1', "story_end/image/story_end_(1).png");
 		img1 = new collie.DisplayObject({
 			x : 10,
@@ -300,12 +300,12 @@
 		collie.ImageManager.add({"bloodnewsPaper" : "story_end/image/story_end_(6).png"})
 		collie.ImageManager.add({"moveFace" : "story_end/image/story_end_(7).png"})
 		collie.ImageManager.add({"orgol" : "story_end/image/story_end_(1)_1.png"})
-		
+
 		collie.Renderer.addLayer(layer);
 		collie.Renderer.addLayer(layerTalk);
 		collie.Renderer.load(document.getElementById("container"));
 		collie.Renderer.start();
-		
+
 		collie.Timer.delay(function(oEvent) {
 		}, 1000).attach({
 			complete : function() {
@@ -320,8 +320,8 @@
 			}
 		});
 	</script>
-	<font color="red">¹è°æÀ½ : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="²ô±â"/><p/>
-	<font color="red">È¿°úÀ½ : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="²ô±â"/>
+	<font color="red">ë°°ê²½ìŒ : </font><input type="button" name="bgmBtn" onClick="bgmStart_stop()" value="ï¿½ï¿½ï¿½ï¿½"/><p/>
+	<font color="red">íš¨ê³¼ìŒ : </font><input type="button" name="efmBtn" onClick="efmStart_stop()" value="ï¿½ï¿½ï¿½ï¿½"/>
 
 </body>
 </html>
